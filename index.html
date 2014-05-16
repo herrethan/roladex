@@ -1,0 +1,178 @@
+<html>
+<head>
+  <title>roladex</title>
+  <script src="../flip/jquery-1.10.2.min.js"></script>
+<style>
+.cardwrap{
+  -webkit-perspective: 1500;
+     -moz-perspective: 1500;
+      -ms-perspective: 1500;
+          perspective: 1500;
+  width:300px;
+  margin:0 auto;
+}
+.card {
+  position:absolute;
+  -webkit-transform: rotateX(0deg);
+     -moz-transform: rotateX(0deg);
+      -ms-transform: rotateX(0deg);
+          transform: rotateX(0deg);
+  -webkit-transform-style: preserve-3d;
+     -moz-transform-style: preserve-3d;
+      -ms-transform-style: preserve-3d;
+          transform-style: preserve-3d;   
+  -webkit-transition: 0.5s;
+     -moz-transition: 0.5s;
+      -ms-transition: 0.5s;
+          transition: 0.5s;
+  height:300px;
+  width:300px;
+  z-index: 0;
+}
+
+.turn{
+  -webkit-transform: rotateX(-180deg);
+     -moz-transform: rotateX(-180deg);
+      -ms-transform: rotateX(-180deg);
+          transform: rotateX(-180deg);
+}
+.card h1 {
+  text-align: center;
+  color: #463838;
+  font-size: 24em;
+  line-height: 0;
+  margin: 0;
+  position: absolute;
+  width:100%;
+  -moz-transform: translateY(.09em); /* may need to adjust for font rendering differences */ 
+}
+.face {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+     -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+          backface-visibility: hidden;
+  overflow:hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background-color: coral;
+}
+.front{ z-index:1; }
+.back{ z-index: 0; }
+.back{
+  -webkit-transform: rotateX(180deg);
+     -moz-transform: rotateX(180deg);
+      -ms-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+}
+.front:after{
+  content:'';
+  position: absolute;
+  width:100%;
+  height:100%;
+  background-color: rgba(0,0,0,1);
+  opacity:0;
+  -webkit-transition: opacity 0.7s;
+     -moz-transition: opacity 0.7s;
+      -ms-transition: opacity 0.7s;
+          transition: opacity 0.7s;
+}
+
+.front h1{
+  top: .39em;
+}
+.back h1{
+  top: 0;
+}
+
+/*@-webkit-keyframes fade{
+  from   { opacity:1; }
+  to { opacity:0; }
+}
+@keyframes fade{
+  from   { opacity:1;  }
+  to { opacity:0; }
+}
+*/
+.turn .front:after{
+  opacity:1;
+  /*-webkit-animation: fade .7s forwards;
+  animation: fade .7s forwards;*/
+}
+button {
+
+}
+</style>
+</head>
+<body>
+<button class="up">&#8593;</button>
+<button class="down">&#8595;</button>
+
+<div class="cardwrap">
+  <div class="card">
+    <div class="face front"><h1>3</h1></div>
+    <div class="face back"><h1>...</h1></div>
+  </div>
+  <div class="card">
+    <div class="face front"><h1>4</h1></div>
+    <div class="face back"><h1>3</h1></div>
+  </div>
+  <div class="card">
+    <div class="face front"><h1>5</h1></div>
+    <div class="face back"><h1>4</h1></div>
+  </div>
+  <div class="card">
+    <div class="face front"><h1>6</h1></div>
+    <div class="face back"><h1>5</h1></div>
+  </div>
+  <div class="card">
+    <div class="face front"><h1>7</h1></div>
+    <div class="face back"><h1>6</h1></div>
+  </div>
+  <div class="card">
+    <div class="face front"><h1>8</h1></div>
+    <div class="face back"><h1>7</h1></div>
+  </div>
+  <div class="card turn">
+    <div class="face front"><h1>...</h1></div>
+    <div class="face back"><h1>8</h1></div>
+  </div>
+</div>
+
+
+<script>
+var $c = $('.card');
+var i = $c.length - 2;
+var limit = i;
+
+$c.eq(i).css({
+  'z-index' : 1
+})
+
+
+function go(e){
+  if ( $(e.target).is('.down') ){
+    if (i==0) return false;
+    $c.eq(i).addClass('turn');
+    i --;
+    $c.eq(i).css({ 'z-index': $c.length - 1 - i });
+  }
+  else if ( $(e.target).is('.up') ){
+    if(i==limit) return false;
+    i ++
+    $c.eq(i-1).css({'z-index':0});
+    $c.eq(i).removeClass('turn');
+  }
+}
+
+$('button').click(go)
+
+</script>
+
+</body>
+</html>
+
+
+

@@ -1,4 +1,4 @@
-Roladex
+Roladex(beta)
 =======
 
 Plugin for displaying content like a roladex (or a train terminal time display). The core visual effect is achieved with CSS rotation, animation, and some skillful positioning. So as expected, webkit rocks it, firefox does a pretty good job, and it gracefully degrades for o<b>I</b>d<b>E</b>r browsers.

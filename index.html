@@ -21,10 +21,10 @@
      -moz-transform-style: preserve-3d;
       -ms-transform-style: preserve-3d;
           transform-style: preserve-3d;   
-  -webkit-transition: 0.5s;
-     -moz-transition: 0.5s;
-      -ms-transition: 0.5s;
-          transition: 0.5s;
+  -webkit-transition: 0.5s cubic-bezier(0.8, 1.6, 0, 0.7);
+     -moz-transition: 0.5s cubic-bezier(0.8, 1.6, 0, 0.7);
+      -ms-transition: 0.5s cubic-bezier(0.8, 1.6, 0, 0.7);
+          transition: 0.5s cubic-bezier(0.8, 1.6, 0, 0.7);
   height:300px;
   width:300px;
   z-index: 0;
@@ -87,23 +87,10 @@
   top: 0;
 }
 
-/*@-webkit-keyframes fade{
-  from   { opacity:1; }
-  to { opacity:0; }
-}
-@keyframes fade{
-  from   { opacity:1;  }
-  to { opacity:0; }
-}
-*/
 .turn .front:after{
   opacity:1;
-  /*-webkit-animation: fade .7s forwards;
-  animation: fade .7s forwards;*/
 }
-button {
 
-}
 </style>
 </head>
 <body>
@@ -112,8 +99,20 @@ button {
 
 <div class="cardwrap">
   <div class="card">
-    <div class="face front"><h1>3</h1></div>
+    <div class="face front"><h1>0</h1></div>
     <div class="face back"><h1>...</h1></div>
+  </div>
+  <div class="card">
+    <div class="face front"><h1>1</h1></div>
+    <div class="face back"><h1>0</h1></div>
+  </div>
+  <div class="card">
+    <div class="face front"><h1>2</h1></div>
+    <div class="face back"><h1>1</h1></div>
+  </div>
+  <div class="card">
+    <div class="face front"><h1>3</h1></div>
+    <div class="face back"><h1>2</h1></div>
   </div>
   <div class="card">
     <div class="face front"><h1>4</h1></div>
@@ -135,9 +134,13 @@ button {
     <div class="face front"><h1>8</h1></div>
     <div class="face back"><h1>7</h1></div>
   </div>
+  <div class="card">
+    <div class="face front"><h1>9</h1></div>
+    <div class="face back"><h1>8</h1></div>
+  </div>
   <div class="card turn">
     <div class="face front"><h1>...</h1></div>
-    <div class="face back"><h1>8</h1></div>
+    <div class="face back"><h1>9</h1></div>
   </div>
 </div>
 
@@ -151,28 +154,27 @@ $c.eq(i).css({
   'z-index' : 1
 })
 
-
-function go(e){
+function flip(e){
   if ( $(e.target).is('.down') ){
     if (i==0) return false;
     $c.eq(i).addClass('turn');
     i --;
     $c.eq(i).css({ 'z-index': $c.length - 1 - i });
+    console.log(i)
   }
   else if ( $(e.target).is('.up') ){
     if(i==limit) return false;
-    i ++
-    $c.eq(i-1).css({'z-index':0});
+    $c.eq(i).css({'z-index':0});
+    i ++;
     $c.eq(i).removeClass('turn');
   }
 }
 
-$('button').click(go)
+$('button').click(flip)
 
 </script>
 
 </body>
 </html>
-
 
 

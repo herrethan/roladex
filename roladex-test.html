@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>roladex</title>
+<link rel="stylesheet" type="text/css" href="css/style-nice.css">
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/roladex.js"></script>
+</head>
+<body class="home">
+<div class="masthead">
+  <div class="content">
+    <div class="clock-box clearfix">
+      <h2><b>Hurry!</b> Something will happen in:</h2>
+      <span>HOURS</span><div class="roladex hr"></div>
+      <span>MINS</span><div class="roladex min"></div>
+      <span>SECS</span><div class="roladex sec"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+var now = new Date();
+var target = new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0) //date to countdown to
+var aborted = (target-now) < 0 ? true : false;
+var until = { //get hours/mins/secs until end date
+  h : Math.floor( (target-now) / 36e5 ),
+  m : Math.floor( ((target-now) % 36e5 ) / 6e4),
+  s : Math.floor( ((target-now) % 6e4 ) / 1000 ),
+};
+if(aborted){ until.h = until.m = until.s = 0 }
+
+
+//initiate roladex
+var hr  = $('.roladex.hr').roladex({
+    startvalue : until.h,
+    minvalue : 0,
+    maxvalue : 99
+  }).data('roladex');
+var min  = $('.roladex.min').roladex({
+    startvalue : until.m,
+    minvalue : 0,
+    maxvalue : 59
+  }).data('roladex');
+var sec  = $('.roladex.sec').roladex({
+    startvalue : until.s,
+    minvalue : 0,
+    maxvalue : 59
+  }).data('roladex');
+
+function flip(){
+  sec.flipdown(function(secs){
+    if(secs==sec.options.maxvalue){
+      min.flipdown(function(mins){
+        if(mins==min.options.maxvalue){
+          hr.flipdown();
+        }
+      });
+    }
+  });
+}
+
+//start countown
+setInterval(flip, 1000);
+
+</script>
+
+</body>
+</html>

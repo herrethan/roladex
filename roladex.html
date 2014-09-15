@@ -1,0 +1,69 @@
+<html>
+<head>
+  <title>roladex</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="js/jquery-1.11.0.min.js"></script>
+  <script src="js/roladex.js"></script>
+</head>
+<body>
+
+<div>
+  <button class="up">&#65514;</button>
+  <button class="down">&#65516;</button>
+</div>
+<div class="counter">
+  <div class="roladex hr"></div>
+  <div class="roladex min"></div>
+  <div class="roladex sec"></div>
+</div>
+
+
+
+<script>
+
+var hr  = $('.hr').roladex({
+    startvalue : 2,
+    minvalue : 0,
+    maxvalue : 23
+  }).data('roladex');
+var min  = $('.min').roladex({
+    startvalue : 1,
+    minvalue : 0,
+    maxvalue : 59
+  }).data('roladex');
+var sec  = $('.sec').roladex({
+    startvalue : 56,
+    minvalue : 0,
+    maxvalue : 59
+  }).data('roladex');
+
+
+$('button.down').click(function(){
+  sec.flipdown(function(secs){ 
+    if(secs==0){
+      min.flipdown(function(mins){
+        if(mins==0){
+          hr.flipdown();
+        }
+      });
+    }
+  });
+});
+
+$('button.up').click(function(){
+  sec.flipup(function(secs){
+    if(secs==0){
+      min.flipup(function(mins){
+        if(mins==0){
+          hr.flipup();
+        }
+      });
+    }
+  });
+});
+
+
+</script>
+
+</body>
+</html>

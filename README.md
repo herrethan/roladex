@@ -8,8 +8,9 @@ Plugin for displaying content like a roladex (or a train terminal time display).
 
 Requires:
 - jQuery 1.8.1 or above
+[See a nice demo here](http://herrmedia.com/projects/roladex/roladex-test.html)
 
-[See a demo here](http://herrmedia.com/projects/roladex/)
+[See a stripped down, bland demo here](http://herrmedia.com/projects/roladex/roladex.html)
 
 - - -
 Licensed under the open source MIT License.
